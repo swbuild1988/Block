@@ -1,4 +1,5 @@
 import { Point } from '../type/point';
+import { Log } from '../../log';
 
 export abstract class ShapeBase {
 
@@ -13,27 +14,32 @@ export abstract class ShapeBase {
     }
 
     rotate() {
-        console.log('旋转');
+        Log.info('旋转');
         this.index = (this.index + 1) % this.allShapes.length;
         this.drawShape();
     }
 
     left() {
-        console.log('向左');
+        Log.info('向左');
         this.position.x--;
         this.drawShape();
     }
 
     right() {
-        console.log('向右');
+        Log.info('向右');
         this.position.x++;
         this.drawShape();
     }
 
     down() {
-        console.log('向下');
+        Log.info('向下');
         this.position.y++;
         this.drawShape();
+    }
+
+    getNextShape(): any {
+        const tmpIndex = (this.index + 1) % this.allShapes.length;
+        return this.allShapes[tmpIndex];
     }
 
     abstract drawShape();

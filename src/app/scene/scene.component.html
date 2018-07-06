@@ -1,3 +1,4 @@
-<div class="scene" [style.width.px]="size * 10" [style.height.px]="size * 16">
-  <app-block *ngFor="let position of currentShape.blocks" [position]="position"></app-block>
+<div class="scene" [style.width.px]="size * scene_width" [style.height.px]="size * scene_height">
+  <app-block *ngFor="let block of currentShape.blocks" [position]="block"></app-block>
+  <app-block *ngFor="let block of stockBlocks" [position]="block"></app-block>
 </div>
