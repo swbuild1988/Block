@@ -1,3 +1,4 @@
-<div class="block" 
-[style.background-color]="getColor()" 
-[ngStyle]="{'left':position.x * 20 +'px','top':position.y * 20+'px'}"></div>
+<div class="block" [style.background-color]="getColor()" [style.width.px]="size" [style.height.px]="size" [style.left.px]="position.x * size"
+    [style.top.px]="position.y*size"></div>
+
+<!-- <div [ngStyle]="{'left':position.x * size +'px','top':position.y * size+'px'}"></div> -->

@@ -1,5 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { Point } from '../type/point';
+import * as myGlobals from '../../globals';
 
 @Component({
   selector: 'app-block',
@@ -8,8 +9,9 @@ import { Point } from '../type/point';
 })
 export class BlockComponent implements OnInit {
 
-  @Input() color: string = '#666666';
+  @Input() color: String = '#666666';
   @Input() position: Point;
+  size = myGlobals.block_size;
 
   constructor() {
     this.position = new Point(5, 1);
