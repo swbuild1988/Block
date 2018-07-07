@@ -1,7 +1,7 @@
 import { ShapeBase } from './shapeBase';
 import { Point } from '../type/point';
 
-export class ShapeT extends ShapeBase {
+export class ShapeL2 extends ShapeBase {
   constructor() {
     super();
     // 随机生成决定出现啥形状
@@ -14,28 +14,28 @@ export class ShapeT extends ShapeBase {
     const y = this.position.y;
     this.allShapes = [
       [
-        new Point(x - 1, y),
-        new Point(x, y),
         new Point(x + 1, y),
-        new Point(x, y - 1)
+        new Point(x - 1, y + 1),
+        new Point(x, y + 1),
+        new Point(x + 1, y + 1)
+      ],
+      [
+        new Point(x, y + 1),
+        new Point(x - 1, y + 1),
+        new Point(x - 1, y),
+        new Point(x - 1, y - 1)
+      ],
+      [
+        new Point(x - 1, y),
+        new Point(x + 1, y - 1),
+        new Point(x, y - 1),
+        new Point(x - 1, y - 1)
       ],
       [
         new Point(x, y - 1),
-        new Point(x, y),
-        new Point(x, y + 1),
-        new Point(x + 1, y)
-      ],
-      [
-        new Point(x - 1, y),
-        new Point(x, y),
+        new Point(x + 1, y - 1),
         new Point(x + 1, y),
-        new Point(x, y + 1)
-      ],
-      [
-        new Point(x, y - 1),
-        new Point(x, y),
-        new Point(x, y + 1),
-        new Point(x - 1, y)
+        new Point(x + 1, y + 1)
       ]
     ];
     this.blocks = this.allShapes[this.index];

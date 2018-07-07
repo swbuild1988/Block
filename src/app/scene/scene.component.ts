@@ -5,6 +5,11 @@ import { ShapeSquare } from '../shape/shapeSquare';
 import * as myGlobals from '../../globals';
 import { Log } from '../../log';
 import { Point } from '../type/point';
+import { ShapeL } from '../shape/shapeL';
+import { ShapeL2 } from '../shape/shapeL2';
+import { ShapeZ } from '../shape/shapeZ';
+import { ShapeZ2 } from '../shape/shapeZ2';
+import { ShapeI } from '../shape/shapeI';
 
 @Component({
   selector: 'app-scene',
@@ -12,7 +17,6 @@ import { Point } from '../type/point';
   styleUrls: ['./scene.component.css']
 })
 export class SceneComponent implements OnInit {
-
   // 当前活动的形状
   currentShape: ShapeBase;
   // 下一个形状
@@ -34,7 +38,7 @@ export class SceneComponent implements OnInit {
   // 分数
   score = 0;
 
-  constructor() { }
+  constructor() {}
 
   ngOnInit() {
     this.initData();
@@ -69,6 +73,21 @@ export class SceneComponent implements OnInit {
       case 1:
         return new ShapeT();
 
+      case 2:
+        return new ShapeL();
+
+      case 3:
+        return new ShapeL2();
+
+      case 4:
+        return new ShapeZ();
+
+      case 5:
+        return new ShapeZ2();
+
+      case 6:
+        return new ShapeI();
+
       default:
         return new ShapeT();
     }
@@ -79,7 +98,9 @@ export class SceneComponent implements OnInit {
     setTimeout(() => {
       Log.info('定时器运作');
       // 如果游戏结束，则定时器退出
-      if (this.isGameOver) { return; }
+      if (this.isGameOver) {
+        return;
+      }
 
       if (this.isRun) {
         // 判断方块是否能继续往下
@@ -97,7 +118,6 @@ export class SceneComponent implements OnInit {
   }
 
   roundOver() {
-
     // 将当前方块固定在这个位置
     for (const block of this.currentShape.blocks) {
       this.stockBlocks.push(block);
@@ -122,24 +142,25 @@ export class SceneComponent implements OnInit {
 
         // 先将stockScene这行删除
         for (let k = j; k > 0; k--) {
-          for (let i = 0; i < this.scene_width - 1; i++) {
+          for (let i = 0; i < this.scene_width; i++) {
             this.stockScene[i][k] = this.stockScene[i][k - 1];
           }
         }
-        for (let i = 0; i < this.scene_width - 1; i++) {
+        for (let i = 0; i < this.scene_width; i++) {
           this.stockScene[i][0] = 0;
         }
-
       }
     }
-    this.score += clearNum * (clearNum + 1) / 2;
+    this.score += (clearNum * (clearNum + 1)) / 2;
     Log.info('当前分数：', this.score);
     // 如果剔除行了，则stockBlocks重构
     if (clearNum > 0) {
       this.stockBlocks = [];
       for (let i = 0; i < this.scene_width; i++) {
         for (let j = 0; j < this.scene_height; j++) {
-          if (this.stockScene[i][j] > 0) { this.stockBlocks.push(new Point(i, j)); }
+          if (this.stockScene[i][j] > 0) {
+            this.stockBlocks.push(new Point(i, j));
+          }
         }
       }
     }
@@ -170,19 +191,27 @@ export class SceneComponent implements OnInit {
       // Space,W
       case 32:
       case 87:
-        if (this.isRun && this.canRotate()) { this.currentShape.rotate(); }
+        if (this.isRun && this.canRotate()) {
+          this.currentShape.rotate();
+        }
         break;
       // D
       case 68:
-        if (this.isRun && this.canRight()) { this.currentShape.right(); }
+        if (this.isRun && this.canRight()) {
+          this.currentShape.right();
+        }
         break;
       // A
       case 65:
-        if (this.isRun && this.canLeft()) { this.currentShape.left(); }
+        if (this.isRun && this.canLeft()) {
+          this.currentShape.left();
+        }
         break;
       // S
       case 83:
-        if (this.isRun && this.canDown()) { this.currentShape.down(); }
+        if (this.isRun && this.canDown()) {
+          this.currentShape.down();
+        }
         break;
       // F，暂停/继续
       case 70:
@@ -190,7 +219,9 @@ export class SceneComponent implements OnInit {
         break;
       // R，重启游戏
       case 82:
-        if (this.isGameOver) { this.initData(); }
+        if (this.isGameOver) {
+          this.initData();
+        }
         break;
 
       case 38:
@@ -201,16 +232,23 @@ export class SceneComponent implements OnInit {
         this.delFrame();
         break;
     }
-
   }
 
   canRotate(): boolean {
     const nextBlocks = this.currentShape.getNextShape();
     for (const block of nextBlocks) {
-      if (block.y === this.scene_height - 1) { return false; }
-      if (block.x === this.scene_width - 1) { return false; }
-      if (block.x === 0) { return false; }
-      if (this.stockScene[block.x - 1][block.y] > 0) { return false; }
+      if (block.y === this.scene_height - 1) {
+        return false;
+      }
+      if (block.x === this.scene_width - 1) {
+        return false;
+      }
+      if (block.x === 0) {
+        return false;
+      }
+      if (this.stockScene[block.x - 1][block.y] > 0) {
+        return false;
+      }
     }
 
     return true;
@@ -218,8 +256,12 @@ export class SceneComponent implements OnInit {
 
   canLeft(): boolean {
     for (const block of this.currentShape.blocks) {
-      if (block.x === 0) { return false; }
-      if (this.stockScene[block.x - 1][block.y] > 0) { return false; }
+      if (block.x === 0) {
+        return false;
+      }
+      if (this.stockScene[block.x - 1][block.y] > 0) {
+        return false;
+      }
     }
 
     return true;
@@ -227,28 +269,39 @@ export class SceneComponent implements OnInit {
 
   canRight(): boolean {
     for (const block of this.currentShape.blocks) {
-      if (block.x === this.scene_width - 1) { return false; }
-      if (this.stockScene[block.x + 1][block.y] > 0) { return false; }
+      if (block.x === this.scene_width - 1) {
+        return false;
+      }
+      if (this.stockScene[block.x + 1][block.y] > 0) {
+        return false;
+      }
     }
     return true;
   }
 
   canDown(): boolean {
     for (const block of this.currentShape.blocks) {
-      if (block.y === this.scene_height - 1) { return false; }
-      if (this.stockScene[block.x][block.y + 1] > 0) { return false; }
+      if (block.y === this.scene_height - 1) {
+        return false;
+      }
+      if (this.stockScene[block.x][block.y + 1] > 0) {
+        return false;
+      }
     }
     return true;
   }
 
   addFrame() {
     this.frame += 0.5;
-    if (this.frame > 5) { this.frame = 5.0; }
+    if (this.frame > 5) {
+      this.frame = 5.0;
+    }
   }
 
   delFrame() {
     this.frame -= 0.5;
-    if (this.frame < 0.5) { this.frame = 0.5; }
+    if (this.frame < 0.5) {
+      this.frame = 0.5;
+    }
   }
-
 }
