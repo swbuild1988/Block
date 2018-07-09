@@ -38,6 +38,11 @@ export class ShapeT extends ShapeBase {
         new Point(x - 1, y)
       ]
     ];
+    for (const shapes of this.allShapes) {
+      for (const block of shapes) {
+        block.color = this.color;
+      }
+    }
     this.blocks = this.allShapes[this.index];
   }
 }

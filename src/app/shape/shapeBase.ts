@@ -1,16 +1,23 @@
 import { Point } from '../type/point';
 import { Log } from '../../log';
+import * as myGlobals from '../../globals';
 
 export abstract class ShapeBase {
 
     position: Point;
     blocks: Point[];
+    color: string;
 
     allShapes: any[];
     index: number;
 
     constructor() {
         this.position = new Point(4, 1);
+
+        // 随机颜色
+        const len = myGlobals.shape_colors.length;
+        const index = Math.floor(Math.random() * len);
+        this.color = myGlobals.shape_colors[index];
     }
 
     rotate() {

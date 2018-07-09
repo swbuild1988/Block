@@ -18,6 +18,11 @@ export class ShapeSquare extends ShapeBase {
         new Point(x + 1, y)
       ]
     ];
+    for (const shapes of this.allShapes) {
+      for (const block of shapes) {
+        block.color = this.color;
+      }
+    }
     this.index = 0;
     this.blocks = this.allShapes[0];
   }

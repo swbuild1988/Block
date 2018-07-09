@@ -26,6 +26,12 @@ export class ShapeI extends ShapeBase {
         new Point(x + 2, y )
       ]
     ];
+
+    for (const shapes of this.allShapes) {
+      for (const block of shapes) {
+        block.color = this.color;
+      }
+    }
     this.blocks = this.allShapes[this.index];
   }
 }

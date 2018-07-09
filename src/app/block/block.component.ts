@@ -9,7 +9,6 @@ import * as myGlobals from '../../globals';
 })
 export class BlockComponent implements OnInit {
 
-  @Input() color: String = '#666666';
   @Input() position: Point;
   size = myGlobals.block_size;
 
@@ -21,7 +20,7 @@ export class BlockComponent implements OnInit {
   }
 
   getColor() {
-    return this.color;
+    return this.position.color;
   }
 
 }

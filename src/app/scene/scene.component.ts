@@ -38,7 +38,7 @@ export class SceneComponent implements OnInit {
   // 分数
   score = 0;
 
-  constructor() {}
+  constructor() { }
 
   ngOnInit() {
     this.initData();
@@ -149,21 +149,22 @@ export class SceneComponent implements OnInit {
         for (let i = 0; i < this.scene_width; i++) {
           this.stockScene[i][0] = 0;
         }
-      }
-    }
-    this.score += (clearNum * (clearNum + 1)) / 2;
-    Log.info('当前分数：', this.score);
-    // 如果剔除行了，则stockBlocks重构
-    if (clearNum > 0) {
-      this.stockBlocks = [];
-      for (let i = 0; i < this.scene_width; i++) {
-        for (let j = 0; j < this.scene_height; j++) {
-          if (this.stockScene[i][j] > 0) {
-            this.stockBlocks.push(new Point(i, j));
+
+        // 将对应的block删除
+        for (let index = 0; index < this.stockBlocks.length; index++) {
+          const element = this.stockBlocks[index];
+          if (element.y === j) {
+            this.stockBlocks.splice(index, 1);
+            index--;
+          }
+          if (element.y < j) {
+            element.y++;
           }
         }
       }
     }
+    this.score += (clearNum * (clearNum + 1)) / 2;
+    Log.info('当前分数：', this.score);
 
     // 如果下一个一上来就碰到现有的，则游戏结束
     for (const block of this.nextShape.blocks) {
