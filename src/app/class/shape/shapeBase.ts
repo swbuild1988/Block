@@ -1,6 +1,6 @@
 import { Point } from '../type/point';
-import { Log } from '../../log';
-import * as myGlobals from '../../globals';
+import { Log } from '../../tool/log';
+import * as myGlobals from '../../../globals';
 
 export abstract class ShapeBase {
 

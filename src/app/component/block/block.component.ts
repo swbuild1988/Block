@@ -1,6 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { Point } from '../type/point';
-import * as myGlobals from '../../globals';
+import { Point } from '../../class/type/point';
+import * as myGlobals from '../../../globals';
 
 @Component({
   selector: 'app-block',
