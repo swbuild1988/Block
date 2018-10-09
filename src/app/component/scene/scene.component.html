@@ -1,4 +1,5 @@
 <div class="scene" [style.width.px]="size * scene_width" [style.height.px]="size * scene_height">
+    <p>{{frame}} FPS</p>
     <app-block *ngFor="let block of blockService.currentShape.blocks" [position]="block"></app-block>
     <app-block *ngFor="let block of stockBlocks" [position]="block"></app-block>
 </div>

@@ -1,0 +1,10 @@
+<div class="dashboard" [style.width.px]="dashboard_width" [style.height.px]="dashboard_height">
+    <app-block *ngFor="let block of blockService.nextShape.blocks" [position]="block" [offset_x]="-2"></app-block>
+    <div class="score">
+        <h3><strong>当前得分</strong></h3>
+        <p>{{blockService.score}}</p>
+    </div>
+    <div class="message">
+        <app-message></app-message>
+    </div>
+</div>

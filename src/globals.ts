@@ -5,7 +5,10 @@ export const block_size = 20;
 
 // 场景大小
 export const scene_width = 10;
-export const scene_height = 16;
+export const scene_height = 20;
+
+// 展示板宽度
+export const dashboard_width = 6;
 
 // 形状的个数
 export const shape_num = 7;

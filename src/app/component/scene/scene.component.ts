@@ -1,9 +1,9 @@
 import { Component, OnInit, HostListener } from '@angular/core';
-import { ShapeBase } from '../../class/shape/shapeBase';
 import * as myGlobals from '../../../globals';
 import { Log } from '../../tool/log';
 import { Point } from '../../class/type/point';
 import { BlockService } from '../../service/block.service';
+import { MessageService } from '../../service/message.service';
 
 @Component({
     selector: 'app-scene',
@@ -25,17 +25,16 @@ export class SceneComponent implements OnInit {
     // 场景中现有的方块
     stockBlocks: Point[] = [];
     stockScene: Array<Array<number>>;
-    // 分数
-    score = 0;
 
-    constructor(public blockService: BlockService) { }
+    constructor(private messageService: MessageService, public blockService: BlockService) { }
 
     ngOnInit() {
         this.initData();
     }
 
     initData() {
-        this.score = 0;
+        this.blockService.clearScore();
+        this.messageService.setMessage('按 F 启动游戏');
         this.isGameOver = false;
         this.isRun = false;
 
@@ -122,8 +121,8 @@ export class SceneComponent implements OnInit {
                 }
             }
         }
-        this.score += (clearNum * (clearNum + 1)) / 2;
-        Log.info('当前分数：', this.score);
+
+        this.blockService.addScore(clearNum);
 
         // 如果下一个一上来就碰到现有的，则游戏结束
         for (const block of this.blockService.nextShape.blocks) {
@@ -139,6 +138,7 @@ export class SceneComponent implements OnInit {
     gameOver() {
         this.isGameOver = true;
         Log.info('游戏结束');
+        this.messageService.setMessage('游戏结束,按 R 重新开始');
     }
 
     @HostListener('document:keydown', ['$event'])

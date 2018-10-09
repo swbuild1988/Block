@@ -10,6 +10,8 @@ import * as myGlobals from '../../../globals';
 export class BlockComponent implements OnInit {
 
   @Input() position: Point;
+  @Input() offset_x = 0;
+  @Input() offset_y = 0;
   size = myGlobals.block_size;
 
   constructor() {

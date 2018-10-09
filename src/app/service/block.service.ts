@@ -20,6 +20,8 @@ export class BlockService {
     currentShape: ShapeBase;
     // 下一个形状
     nextShape: ShapeBase;
+    // 分数
+    score = 0;
 
     constructor() {
         this.currentShape = this.getNewShape();
@@ -122,6 +124,16 @@ export class BlockService {
             }
         }
         return true;
+    }
+
+    // 加分
+    addScore(clearNum: number): void {
+        this.score += (clearNum * (clearNum + 1)) / 2;
+    }
+
+    // 清分
+    clearScore(): void {
+        this.score = 0;
     }
 
 
