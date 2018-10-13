@@ -174,6 +174,7 @@ export class SceneComponent implements OnInit {
             // F，暂停/继续
             case 70:
                 this.isRun = !this.isRun;
+                this.messageService.setMessage('按 F ' + (this.isRun ? '暂停' : '启动') + '游戏');
                 break;
             // R，重启游戏
             case 82:

@@ -1,27 +1,16 @@
-# Block
+1.首先安装electron和electron-packager
+npm install -g electron
+npm install -g electron-packager
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 6.0.8.
+2.因为angular项目已经建好了，所以package.json已经建好了，我们只需要建main.js
 
-## Development server
+3.package.json中添加属性 
+    "main": "main.js",
+并在script属性中添加
+        "electron": "ng build && electron .",
+        "electron-aot": "ng build -prod && electron ."
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+4.main.js是程序的主进口，修改win.loadURL中的index.html地址
 
-## Code scaffolding
-
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
-
-## Build
-
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build.
-
-## Running unit tests
-
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
-
-## Running end-to-end tests
-
-Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
-
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
+5.打包命令 electron-packager . Block --win --out ../BlockApp --arch=x64 --app-version=0.0.1 --electron-version=3.0.4
+大概是    electron-packager <应用目录> <应用名称> <打包平台> --out <输出目录> <架构> <应用版本> <electron版本>
